@@ -56,8 +56,7 @@ def get_gpu_info():
         info["names"].append(props.name)
         info["memory_gb"].append(props.total_memory / (1024**3))
 
-    # Get CUDA version
-    info["cuda_version"] = torch.version.cuda or "unknown"
+    info["rocm_version"] = torch.version.hip
 
     return info
 
@@ -145,7 +144,7 @@ Generated: {timestamp}
         total_vram = sum(gpu_info["memory_gb"])
         header += f"""- GPUs: {gpu_info['count']}x {gpu_names}
 - GPU Memory: {total_vram:.1f} GB total
-- CUDA Version: {gpu_info['cuda_version']}
+- ROCm Version: {gpu_info['rocm_version']}
 """
     else:
         header += "- GPUs: None available\n"
